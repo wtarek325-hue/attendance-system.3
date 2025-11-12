@@ -1,0 +1,257 @@
+<!doctype html>
+<html lang="ar">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>مزرعة حكيم للدواجن (الدهب الأبيض)</title>
+  <style>
+    /* CSS بسيط ومقروء */
+    :root{
+      --bg:#f7f7f8;
+      --card:#ffffff;
+      --accent:#f7d86b;
+      --text:#222;
+      --muted:#666;
+      --radius:14px;
+      font-family: "Segoe UI", Tahoma, Arial, "Noto Naskh Arabic", sans-serif;
+    }
+    body{margin:0;background:var(--bg);color:var(--text);line-height:1.6}
+    .container{max-width:1100px;margin:24px auto;padding:20px}
+    header{background:linear-gradient(90deg,var(--accent),#ffd36b);padding:28px;border-radius:var(--radius);box-shadow:0 6px 18px rgba(0,0,0,0.08);text-align:center}
+    header h1{margin:0;font-size:28px}
+    header p{margin:6px 0 0;color:var(--muted)}
+    .grid{display:grid;grid-template-columns:1fr;gap:18px;margin-top:18px}
+    @media(min-width:900px){.grid{grid-template-columns:1fr 1fr}}
+    .card{background:var(--card);padding:16px;border-radius:12px;box-shadow:0 4px 12px rgba(0,0,0,0.05)}
+    .gallery{display:flex;gap:8px;overflow:hidden}
+    .gallery img{width:100%;height:220px;object-fit:cover;border-radius:10px}
+    .info h2{margin:0 0 8px;font-size:20px}
+    .info ul{margin:8px 0 0;padding-left:18px;color:var(--muted)}
+    .table-wrap{overflow:auto}
+    table{width:100%;border-collapse:collapse;font-size:14px}
+    th,td{padding:10px;border-bottom:1px solid #eee;text-align:center}
+    thead th{background:#fafafa;font-weight:600}
+    .muted{color:var(--muted);font-size:13px}
+    iframe.sheet-frame{width:100%;height:420px;border:0;border-radius:8px}
+    .top-row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;justify-content:space-between}
+    .btn{display:inline-block;background:#0b76ef;color:white;padding:8px 12px;border-radius:8px;text-decoration:none;font-weight:600}
+    footer{margin-top:18px;text-align:center;color:var(--muted);font-size:13px}
+    .error{color:#b00020;font-weight:600}
+    .loading{color:#0b76ef;font-weight:600}
+    .small{font-size:13px;color:var(--muted)}
+    .contact{display:flex;gap:8px;flex-wrap:wrap}
+    .contact a{display:inline-block;padding:8px 10px;border-radius:8px;background:#f2f2f2;text-decoration:none;color:var(--text)}
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    <header>
+      <h1>مزرعة حكيم للدواجن <span style="color:#7a4b00">(الدهب الأبيض)</span></h1>
+      <p>الأفضل في تربية وإنتاج الدواجن — تغذية متوازنة، إشراف بيطري، ونظم متابعة كهربائية</p>
+    </header>
+
+    <div class="grid">
+      <!-- قسم الصور والنبذة -->
+      <div class="card">
+        <div class="gallery" id="gallery">
+          <!-- صور افتراضية — ممكن تغيرها أو ترفع صورك الخاصة وتضع روابطها هنا -->
+          <img src="https://images.unsplash.com/photo-1605810230434-7631ac76ec81?auto=format&fit=crop&w=1200&q=80" alt="مزرعة دواجن">
+          <img src="https://images.unsplash.com/photo-1614663426185-0c2b7b9f8d3c?auto=format&fit=crop&w=1200&q=80" alt="دواجن">
+        </div>
+
+        <div class="info" style="margin-top:12px">
+          <h2>عن المزرعة</h2>
+          <p class="small">
+            تأسست مزرعة <strong>حكيم للدواجن (الدهب الأبيض)</strong> عام 2015 ومتخصصة في إنتاج الدواجن البيضاء
+            وفق أعلى معايير السلامة والصحة الحيوانية. نعتمد على نظم تغذية آلية ومتابعة بيطرية يومية.
+          </p>
+
+          <ul>
+            <li>سعة المزرعة: 25,000 طائر</li>
+            <li>موقع: طريق الإسماعيلية الزراعي (قابل للتعديل)</li>
+            <li>خدمات: فحوصات بيطرية، تطعيمات دورية، خط تعبئة لمنتجات الدواجن</li>
+          </ul>
+
+          <div style="margin-top:12px" class="contact">
+            <a class="btn" href="tel:+201000000000">اتصل الآن</a>
+            <a href="mailto:info@hakimfarm.example" class="contact-link">إرسال بريد إلكتروني</a>
+            <a href="#" id="openSheetBtn" class="contact-link">فتح الورقة في Google Sheets</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- قسم بيانات من Google Sheet -->
+      <div class="card">
+        <div class="top-row" style="margin-bottom:8px">
+          <h2 style="margin:0">بيانات التشغيل</h2>
+          <div class="small muted">البيانات تُحمّل من Google Sheet عبر Google Apps Script (JSON)</div>
+        </div>
+
+        <div id="status" class="small muted">جارِ الاستعداد لتحميل البيانات...</div>
+
+        <div class="table-wrap" id="tableWrap" style="margin-top:10px"></div>
+
+        <div style="margin-top:12px" class="small muted">
+          إذا ظهرت مشكلة في التحميل، تأكد أن: <br>
+          1) قمت بنشر Google Apps Script كـ Web App وسمحت بالوصول. <br>
+          2) استبدلت المعرفات (IDs) في الكود أدناه بالقيم الصحيحة.
+        </div>
+      </div>
+    </div>
+
+    <!-- قسم iframe يعرض الورقة المنشورة -->
+    <div class="card" style="margin-top:18px">
+      <h2 style="margin-top:0">الورقة الأصلية (Google Sheet)</h2>
+      <div id="sheetFrameWrap">
+        <!-- ضع رابط الورقة المنشور في المتغير SHEET_IFRAME_URL داخل الكود -->
+        <iframe id="sheetFrame" class="sheet-frame" src="" title="Google Sheet"></iframe>
+      </div>
+    </div>
+
+    <footer>
+      جميع الحقوق محفوظة © 2025 مزرعة حكيم للدواجن (الدهب الأبيض)
+    </footer>
+  </div>
+
+  <script>
+    /***************************************************************************
+     * تعليمات مهمة:
+     * 1) ضع ID الـ Google Sheet الخاص بك بدلاً من YOUR_SHEET_ID_HERE
+     *    — يمكن إيجاد الـ ID في رابط Google Sheet بين /d/ و /edit
+     *
+     * 2) بعد تحميل الكود Google Apps Script ونشره كـ Web App، احط الـ DEPLOYED_SCRIPT_ID
+     *    في APPS_SCRIPT_ENDPOINT أدناه (الجزء بعد /s/ وحتى /exec)
+     *
+     * 3) من Google Sheets: File -> Publish to the web -> اختر النطاق وانسخ رابط "publish"
+     *    ثم ضع الرابط في SHEET_IFRAME_URL لعرض الورقة داخل iframe.
+     *
+     * 4) مثال للـ Apps Script موجود سابقاً (doGet -> يعيد JSON).
+     ***************************************************************************/
+
+    // ====== عيّن هذه القيم ======
+    var SPREADSHEET_ID = "YOUR_SHEET_ID_HERE"; // استبدل بالـ Spreadsheet ID
+    var DEPLOYED_SCRIPT_ID = "YOUR_DEPLOYED_SCRIPT_ID"; // الجزء الموجود في رابط Apps Script (بعد /s/ )
+    // رابط iframe المنشور من Google Sheets بعد Public -> Publish to web
+    var SHEET_IFRAME_URL = "https://docs.google.com/spreadsheets/d/e/YOUR_PUBLISHED_SHEET_ID/pubhtml?widget=true&headers=false";
+    // ============================
+
+    // نبني رابط endpoint المطلوب
+    var APPS_SCRIPT_ENDPOINT = "";
+    if (DEPLOYED_SCRIPT_ID && DEPLOYED_SCRIPT_ID.indexOf("YOUR") === -1) {
+      APPS_SCRIPT_ENDPOINT = "https://script.google.com/macros/s/" + DEPLOYED_SCRIPT_ID + "/exec";
+    }
+
+    // عناصر الواجهة
+    var statusEl = document.getElementById("status");
+    var tableWrap = document.getElementById("tableWrap");
+    var sheetFrame = document.getElementById("sheetFrame");
+    var openSheetBtn = document.getElementById("openSheetBtn");
+
+    // ضع رابط iframe لو تم ضبطه
+    if (SHEET_IFRAME_URL && SHEET_IFRAME_URL.indexOf("YOUR_PUBLISHED_SHEET_ID") === -1) {
+      sheetFrame.src = SHEET_IFRAME_URL;
+      openSheetBtn.href = SHEET_IFRAME_URL;
+      openSheetBtn.target = "_blank";
+    } else {
+      sheetFrame.src = "";
+      openSheetBtn.addEventListener("click", function(e){
+        e.preventDefault();
+        alert("ضع رابط الورقة المنشور (published) في متغير SHEET_IFRAME_URL داخل الكود.");
+      });
+    }
+
+    // دالة تُبني جدول HTML من مصفوفة الكائنات
+    function buildTable(data) {
+      if (!Array.isArray(data) || data.length === 0) {
+        tableWrap.innerHTML = "<div class='muted'>لا توجد بيانات لعرضها.</div>";
+        return;
+      }
+      var keys = Object.keys(data[0]);
+      var html = "<table><thead><tr>";
+      keys.forEach(function(k){ html += "<th>" + escapeHtml(k) + "</th>"; });
+      html += "</tr></thead><tbody>";
+      data.forEach(function(row){
+        html += "<tr>";
+        keys.forEach(function(k){
+          html += "<td>" + escapeHtml(String(row[k] ?? "")) + "</td>";
+        });
+        html += "</tr>";
+      });
+      html += "</tbody></table>";
+      tableWrap.innerHTML = html;
+    }
+
+    // دالة بسيطة للهروب من HTML في النصوص
+    function escapeHtml(s){ return s.replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;"); }
+
+    // جلب البيانات من Apps Script endpoint
+    function fetchDataFromAppsScript() {
+      if (!APPS_SCRIPT_ENDPOINT) {
+        statusEl.innerHTML = "<span class='error'>لم يتم ضبط APPS_SCRIPT_ENDPOINT. ضع DEPLOYED_SCRIPT_ID في الكود.</span>";
+        return;
+      }
+      statusEl.innerHTML = "<span class='loading'>جارِ تحميل البيانات من Google Apps Script…</span>";
+      // نستخدم fetch عادي
+      fetch(APPS_SCRIPT_ENDPOINT, {cache: "no-store"})
+        .then(function(res){
+          if (!res.ok) throw new Error("HTTP " + res.status);
+          return res.json();
+        })
+        .then(function(json){
+          statusEl.innerHTML = "<span class='small muted'>تم تحميل البيانات بنجاح. (" + json.length + " صف)</span>";
+          buildTable(json);
+        })
+        .catch(function(err){
+          console.error(err);
+          statusEl.innerHTML = "<span class='error'>فشل تحميل البيانات: " + (err.message || err) + "</span>";
+          tableWrap.innerHTML = "<div class='muted'>تأكد من نشر Apps Script كـ Web App وأن الوصول مسموح. أيضاً افتح Console في المتصفح لمزيد من التفاصيل.</div>";
+        });
+    }
+
+    // ---- بارمجية لتهيئة الصفحة ----
+    (function init(){
+      // لو المستخدم عدل المتغيرات ويعرف الـ endpoint، نحاول التحميل
+      if (APPS_SCRIPT_ENDPOINT) {
+        fetchDataFromAppsScript();
+      } else {
+        statusEl.innerHTML = "<span class='muted'>ضع DEPLOYED_SCRIPT_ID في الكود لربط البيانات (انظر التعليقات في الكود).</span>";
+        tableWrap.innerHTML = "<div class='muted'>لم يتم تحميل بيانات لأن APPS_SCRIPT_ENDPOINT غير مُعد.</div>";
+      }
+    })();
+
+    /**************************************************************************
+     * مثال: كود Google Apps Script المطلوب نشره (تأكد من نشره كـ Web App)
+     *
+     * function doGet(e) {
+     *   return getSheetAsJson();
+     * }
+     *
+     * function getSheetAsJson() {
+     *   var ssId = 'YOUR_SHEET_ID_HERE';
+     *   var ss = SpreadsheetApp.openById(ssId);
+     *   var sheet = ss.getSheets()[0];
+     *   var values = sheet.getDataRange().getValues();
+     *   if (values.length < 2) return ContentService.createTextOutput(JSON.stringify([])).setMimeType(ContentService.MimeType.JSON);
+     *   var headers = values[0];
+     *   var rows = [];
+     *   for (var r = 1; r < values.length; r++) {
+     *     var rowObj = {};
+     *     for (var c = 0; c < headers.length; c++) {
+     *       rowObj[headers[c]] = values[r][c];
+     *     }
+     *     rows.push(rowObj);
+     *   }
+     *   // إضافة CORS header اختياري (Apps Script عادة يسمح بالوصول)
+     *   return ContentService.createTextOutput(JSON.stringify(rows)).setMimeType(ContentService.MimeType.JSON);
+     * }
+     *
+     * خطوات النشر:
+     * 1) افتح script.google.com -> مشروع جديد -> ألصق الكود.
+     * 2) Deploy -> New deployment -> اختر نوع Web app.
+     * 3) Execute as: Me  |  Who has access: Anyone (or Anyone with Google account).
+     * 4) انسخ رابط النشر: https://script.google.com/macros/s/DEPLOYED_SCRIPT_ID/exec
+     ***************************************************************************/
+  </script>
+</body>
+</html>
